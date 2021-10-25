@@ -12,6 +12,9 @@ public class Calculator {
      * @return - how many times character is in files
      */
     public Integer getNumberOfChar(String zipFilePath, char character) {
+        if (zipFilePath == null){
+            throw new IllegalArgumentException ("The path cannot be null");
+        }
         int count = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
@@ -36,6 +39,9 @@ public class Calculator {
      */
 
     public Integer getMaxWordLength(String zipFilePath) {
+        if (zipFilePath == null){
+            throw new IllegalArgumentException ("The path cannot be null");
+        }
         int count = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
