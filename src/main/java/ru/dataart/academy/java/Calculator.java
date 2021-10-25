@@ -18,10 +18,10 @@ public class Calculator {
         int count = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
-                Scanner in = new Scanner(zip, "UTF-8");
-                in.useDelimiter("\n");
-                while (in.hasNext()) {
-                    String line = in.next();
+                Scanner textFile = new Scanner(zip, "UTF-8");
+                textFile.useDelimiter("\n");
+                while (textFile.hasNext()) {
+                    String line = textFile.next();
                     if (line.contains(String.valueOf(character))) {
                         count++;
                     }
@@ -42,16 +42,16 @@ public class Calculator {
         if (zipFilePath == null){
             throw new IllegalArgumentException ("The path cannot be null");
         }
-        int count = 0;
+        int maxCount = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
-                Scanner in = new Scanner(zip, "UTF-8");
-                in.useDelimiter("\n");
-                while (in.hasNext()) {
-                    String[] arrays = in.next().split("\\s+");
-                    for (String ch : arrays) {
-                        if (ch.length() > count) {
-                            count = ch.length();
+                Scanner textFile = new Scanner(zip, "UTF-8");
+                textFile.useDelimiter("\n");
+                while (textFile.hasNext()) {
+                    String[] arraysWords = textFile.next().split("\\s+");
+                    for (String word : arraysWords) {
+                        if (word.length() > maxCount) {
+                            maxCount = word.length();
                         }
                     }
                 }
@@ -59,6 +59,6 @@ public class Calculator {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        return count;
+        return maxCount;
     }
 }
