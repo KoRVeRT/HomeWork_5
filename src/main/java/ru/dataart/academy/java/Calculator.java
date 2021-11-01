@@ -12,17 +12,18 @@ public class Calculator {
      * @return - how many times character is in files
      */
     public Integer getNumberOfChar(String zipFilePath, char character) {
-        if (zipFilePath == null){
-            throw new IllegalArgumentException ("The path cannot be null");
+        if (zipFilePath == null) {
+            throw new IllegalArgumentException("The path cannot be null");
         }
         int count = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
                 Scanner textFile = new Scanner(zip, "UTF-8");
-                textFile.useDelimiter("\n");
                 while (textFile.hasNext()) {
-                    String line = textFile.next();
-                    if (line.contains(String.valueOf(character))) {
+                    int indexWord = 0;
+                    String line = textFile.nextLine();
+                    while (line.indexOf(String.valueOf(character), indexWord) != -1) {
+                        indexWord = line.indexOf(String.valueOf(character), indexWord) + 1;
                         count++;
                     }
                 }
@@ -39,16 +40,15 @@ public class Calculator {
      */
 
     public Integer getMaxWordLength(String zipFilePath) {
-        if (zipFilePath == null){
-            throw new IllegalArgumentException ("The path cannot be null");
+        if (zipFilePath == null) {
+            throw new IllegalArgumentException("The path cannot be null");
         }
         int maxCount = 0;
         try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFilePath))) {
             while (zip.getNextEntry() != null) {
                 Scanner textFile = new Scanner(zip, "UTF-8");
-                textFile.useDelimiter("\n");
                 while (textFile.hasNext()) {
-                    String[] arraysWords = textFile.next().split("\\s+");
+                    String[] arraysWords = textFile.nextLine().split("\\s+");
                     for (String word : arraysWords) {
                         if (word.length() > maxCount) {
                             maxCount = word.length();

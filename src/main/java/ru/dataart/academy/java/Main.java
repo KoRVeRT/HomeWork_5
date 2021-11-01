@@ -11,6 +11,7 @@ public class Main {
             String zip1Path = "src" + File.separator + "test" + File.separator + "resources" + File.separator + "test1.zip";
             System.out.println("Calculator get number of 1: " + calculator.getNumberOfChar(zipPath, '1'));
             System.out.println("Calculator get number of 3: " + calculator.getNumberOfChar(zipPath, '3'));
+            System.out.println("Calculator get number of 6: " + calculator.getNumberOfChar(zipPath, '6'));
 
             System.out.println("Calculator get max length: " + calculator.getMaxWordLength(zip1Path));
 
